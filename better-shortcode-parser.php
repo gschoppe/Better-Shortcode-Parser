@@ -28,10 +28,10 @@ class Better_Shortcode_Parser {
 	}
 
 	public function init() {
-		remove_action( 'the_content'        , 'do_shortcode', 11 );
-		remove_action( 'widget_text_content', 'do_shortcode', 11 );
-		add_action( 'the_content'        , array( $this, 'do_shortcode' ), 11 );
-		add_action( 'widget_text_content', array( $this, 'do_shortcode' ), 11 );
+		remove_filter( 'the_content'        , 'do_shortcode', 11 );
+		remove_filter( 'widget_text_content', 'do_shortcode', 11 );
+		add_filter( 'the_content'        , array( $this, 'do_shortcode' ), 11 );
+		add_filter( 'widget_text_content', array( $this, 'do_shortcode' ), 11 );
 	}
 
 	public function do_shortcode( $content, $ignore_html = false ) {
