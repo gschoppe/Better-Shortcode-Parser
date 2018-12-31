@@ -56,7 +56,22 @@ class WP_Shortcode_Renderer {
 			if( empty( $shortcode['innerShortcodes'] ) ) {
 				$content = implode('', $shortcode['innerContent'] );
 			} else {
-				$content = $this->interleave_shortcodes( $shortcode['innerContent'], $shortcode['innerShortcodes'] );
+				/**
+				* filter to restore legacy treatment of nested shortcodes
+				*
+				* @since 0.3.0
+				*
+				* @param boolean      $disable   Flag to disable nested parsing
+				* @param string       $tag       Shortcode name.
+				* @param array|string $attr      Shortcode attributes array or empty string.
+				* @param array        $shortcode shortcode tree node.
+				*/
+				if( !apply_filters('shortcode_disable_nested_rendering', false, $tag, $shortcode['attrs'], $shortcode ) ) {
+					$content = $this->interleave_shortcodes( $shortcode['innerContent'], $shortcode['innerShortcodes'] );
+				} else {
+					$content = $shortcode['rawContent'];
+				}
+
 			}
 		}
 		/**

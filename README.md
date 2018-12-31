@@ -25,7 +25,7 @@ This means that shortcode rendering functions don't know what other shortcodes t
 
 ### Resolving Context issues
 
-The changes listed above mean that it is no longer possible to give context to nested shortcodes from inside the shortcode render callback itself. There are two possible routes to address this change
+The changes listed above mean that it is no longer possible to give context to nested shortcodes from inside the shortcode render callback itself. There are three possible routes to address this change
 
 #### Modify Shortcodes to be Context-Free (preferred option)
 
@@ -111,4 +111,26 @@ It should be noted that rather than using a single temporary global, as seen abo
     [inner-shortcode]
   [/context-switcher]
 [/context-switcher]
+```
+#### Disable nested shortcode rendering (legacy option)
+
+If you are working with a legacy codebase where refactoring shortcodes to support these means of passing context is impossible, your last resort is to disable the rendering of nested shortcodes, and rely on the existing functionality of your shortcode library to handle these situations.
+
+This can be done globally like so:
+
+```
+apply_filters('shortcode_disable_nested_rendering', '__return_true');
+```
+
+or on a shortcode-specific basis, like so:
+
+```
+function disable_nesting_on_post_shortcodes( $retval, $tag ) {
+  $blacklist = array('post', 'column');
+  if( in_array( $tag, $blacklist ) ) {
+    return true;
+  }
+  return $retval;
+}
+apply_filters('shortcode_disable_nested_rendering', 'disable_nesting_on_post_shortcodes', 10, 2);
 ```
