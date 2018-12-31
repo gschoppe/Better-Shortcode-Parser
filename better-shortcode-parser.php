@@ -3,7 +3,7 @@
  Plugin Name: Better Shortcode Parser
  Plugin URI:  https://gschoppe.com
  Description: Better Shortcode Parser, supporting nested shortcodes
- Version:     0.1.0
+ Version:     0.2.0
  Author:      Greg Schoppe
  Author URI:  https://gschoppe.com
  License:     GPL-2.0+
