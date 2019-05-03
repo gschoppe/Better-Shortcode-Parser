@@ -128,7 +128,7 @@ class WP_Shortcode_Renderer {
 		* @param string       $content   Shortcode content or empty string.
 		* @param array        $shortcode shortcode tree node.
 		*/
-		return apply_filters( 'do_shortcode_tag', $output, $tag, $shortcode->attrs, $content, $shortcode );
+		return apply_filters( 'do_shortcode_tag', $output, $tag, $shortcode['attrs'], $content, $shortcode );
 	}
 
 	function interleave_shortcodes( $content_parts, $shortcodes ) {
